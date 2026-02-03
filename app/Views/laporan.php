@@ -18,7 +18,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="item in datas.alternatif | limitTo: 3">
+                                <tr ng-repeat="item in datas.alternatif">
                                     <td>{{$index+1}}</td>
                                     <td>{{item.kode}}</td>
                                     <td>{{item.nama}}</td>
