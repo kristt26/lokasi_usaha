@@ -84,9 +84,7 @@ class Alternatif extends BaseController
     public function deleted($id = null)
     {
         try {
-            $item = $this->alternatif->where('id', $id)->first();
-            $this->decode->deleteFile($item['lokasi']);
-            if ($this->alternatif->delete($id));
+            $this->alternatif->delete($id);
             return $this->respondDeleted(true);
         } catch (\Throwable $th) {
             return $this->fail($th->getMessage());

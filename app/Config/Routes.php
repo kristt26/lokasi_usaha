@@ -48,7 +48,7 @@ $routes->group('range', ['filter'=>'auth'], function ($routes) {
     $routes->get('read', 'Range::read');
     $routes->post('post', 'Range::post');
     $routes->put('put', 'Range::put');
-    $routes->delete('delete /(:any)', 'Range::deleted/$1');
+    $routes->delete('delete/(:any)', 'Range::deleted/$1');
 });
 
 $routes->group('alternatif', ['filter'=>'auth'], function ($routes) {
@@ -57,7 +57,7 @@ $routes->group('alternatif', ['filter'=>'auth'], function ($routes) {
     $routes->post('post', 'Alternatif::post');
     $routes->post('set_data', 'Alternatif::set_data');
     $routes->put('put', 'Alternatif::put');
-    $routes->delete('delete /(:any)', 'Alternatif::deleted/$1');
+    $routes->delete('delete/(:any)', 'Alternatif::deleted/$1');
 });
 
 $routes->group('penilaian' , ['filter'=>'auth'], function ($routes) {

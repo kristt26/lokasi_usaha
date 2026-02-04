@@ -9,7 +9,7 @@ class Range extends BaseController
     use ResponseTrait;
     protected $range;
     public function __construct() {
-        $this->range = new \App\Models\RangeModel();
+        $this->range = new \App\Models\IndikatorModel();
     }
     
     public function read()

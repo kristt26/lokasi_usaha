@@ -362,7 +362,8 @@ function alternatifServices($http, $q, helperServices, AuthService, pesan) {
       headers: AuthService.getHeader(),
     }).then(
       (res) => {
-        def.resolve(res.data);
+         service.data.push(res.data);
+        def.resolve(res.param);
       },
       (err) => {
         pesan.error(err.data.messages.error);
@@ -424,6 +425,8 @@ function alternatifServices($http, $q, helperServices, AuthService, pesan) {
       headers: AuthService.getHeader(),
     }).then(
       (res) => {
+        var index = service.data.indexOf(param);
+        service.data.splice(index, 1);
         def.resolve(res.data);
       },
       (err) => {
