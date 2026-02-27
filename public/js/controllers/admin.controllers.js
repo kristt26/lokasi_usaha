@@ -67,7 +67,7 @@ function kriteriaController(
   kriteriaServices,
   pesan,
   helperServices,
-  RangeServices
+  RangeServices,
 ) {
   $scope.setTitle = "Kriteria";
   $scope.$emit("SendUp", $scope.setTitle);
@@ -162,7 +162,7 @@ function alternatifController(
   alternatifServices,
   kriteriaServices,
   pesan,
-  helperServices
+  helperServices,
 ) {
   $scope.setTitle = "Lokasi";
   $scope.$emit("SendUp", $scope.setTitle);
@@ -213,7 +213,7 @@ function laporanController(
   periodeServices,
   pesan,
   helperServices,
-  laporanServices
+  laporanServices,
 ) {
   $scope.setTitle = "Hasil Perhitungan";
   $scope.$emit("SendUp", $scope.setTitle);
@@ -228,16 +228,19 @@ function laporanController(
   };
 }
 
-function penilaianController($scope, penilaianServices, pesan, helperServices) {
+function penilaianController($scope, penilaianServices, pesan, helperServices, laporanServices) {
   $scope.setTitle = "Penilaian";
   $scope.$emit("SendUp", $scope.setTitle);
   $scope.datas = {};
   $scope.model = {};
-  penilaianServices.get().then((res) => {
-    $scope.datas = res;
-    $scope.mapData();
-    console.log($scope.datas.alternatif);
-  });
+  $scope.tampil = "penilaian";
+  $scope.init = ()=>{
+    penilaianServices.get().then((res) => {
+      $scope.datas = res;
+      $scope.mapData();
+      console.log($scope.datas.alternatif);
+    });
+  }
   $scope.mapData = () => {
     $scope.datas.alternatif.forEach((element) => {
       element.kriterias = angular.copy($scope.datas.kriteria);
@@ -254,12 +257,23 @@ function penilaianController($scope, penilaianServices, pesan, helperServices) {
   $scope.save = () => {
     pesan.dialog("Yakin ingin?", "Yes", "Tidak").then((res) => {
       penilaianServices.post($scope.datas.alternatif).then((res) => {
-        // $scope.model = {};
-        $scope.datas.alternatif = res;
         pesan.Success("Berhasil menambah data");
-        $scope.mapData();
+        $scope.init();
       });
     });
+  };
+
+  $scope.perhitunganManual = (param) => {
+    if($scope.tampil == 'manual')
+      $scope.tampil = "penilaian";
+    else{
+      laporanServices.hitung().then((res) => {
+        $scope.tampil = "manual";
+        $scope.manual = res;
+        // $scope.datas = res;
+        console.log(res);
+      });
+    }
   };
 
   $scope.delete = (param) => {

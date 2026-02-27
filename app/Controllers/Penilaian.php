@@ -67,21 +67,22 @@ class Penilaian extends BaseController
                 foreach ($alt->kriterias as $key => $kri) {
                     $item = [
                         'kriteria_id' => $kri->id,
-                        'alternatif_id' => $alt->id,
+                        'lokasi_id' => $alt->id,
                         'bobot' => $kri->nilai,
                     ];
                     $dataAlt[] = $item;
-                    if (isset($kri->pref_id)){
+                    if (isset($kri->pref_id)) {
                         $item['id'] = $kri->pref_id;
                         $dataUpdate[] = $item;
-                    }
-                    else
+                    } else
                         $dataSimpan[] = $item;
                 }
                 $alt->nilai = $dataAlt;
             }
-            $this->referensi->insertBatch($dataSimpan);
-            $this->referensi->updateBatch($dataUpdate, 'id');
+            if (count($dataSimpan) > 0)
+                $this->referensi->insertBatch($dataSimpan);
+            if (count($dataUpdate) > 0)
+                $this->referensi->updateBatch($dataUpdate, 'id');
             $conn->transComplete();
             return $this->respond($data);
         } catch (\Throwable $th) {

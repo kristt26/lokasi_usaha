@@ -46,7 +46,7 @@ class CreatePreferensi extends Migration
             'lokasi',
             'id',
             'NO ACTION',
-            'NO ACTION'
+            'CASCADE'
         );
 
         $this->forge->createTable('preferensi', true);

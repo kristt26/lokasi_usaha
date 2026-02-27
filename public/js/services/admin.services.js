@@ -553,7 +553,9 @@ function laporanServices($http, $q, helperServices, AuthService, pesan) {
         def.resolve(res.data);
       },
       (err) => {
-        pesan.error(err.data.messages.error);
+        pesan.dialog(err.data.messages.error, "OK", null, 'error').then(x=>{
+          document.location.href = helperServices.url+"penilaian";
+        })
         def.reject(err);
       }
     );

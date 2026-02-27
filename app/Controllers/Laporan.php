@@ -53,7 +53,7 @@ class Laporan extends BaseController
             $htg = new moora($kriterias, $result, 7);
             return $this->respond($htg);
         } catch (\Throwable $th) {
-            return $this->fail($th->getMessage());
+            return $this->fail("Ada alternatif lokasi yang belum dinilai");
         }
     }
 }
